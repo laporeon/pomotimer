@@ -9,7 +9,6 @@ export class Pomodoro {
     this.value = 0;
     this.progressBar = progressBar;
   }
-
   startFocus() {
     this.createProgressBar();
 
