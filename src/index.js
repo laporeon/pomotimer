@@ -25,10 +25,9 @@ async function main() {
     const answers = await inquirer.prompt(questions);
     const { focus, breakTime } = answers;
 
-    const pom = new Pomodoro(focus, breakTime);
+    const pomodoro = new Pomodoro(focus, breakTime);
 
-    pom.startFocus();
-    console.log('Answers:', answers);
+    pomodoro.init();
   } catch (error) {
     console.error('Error:', error);
   }
