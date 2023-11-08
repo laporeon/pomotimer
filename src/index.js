@@ -1,18 +1,37 @@
-import { createServer } from 'node:http';
+import inquirer from 'inquirer';
 
-const port = 3000 || process.env.PORT;
+import { Pomodoro } from './utils/Pomodoro.js';
 
-const server = createServer((req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'application/json',
-  });
-  res.end(
-    JSON.stringify({
-      message: 'Hello World!',
-    }),
-  );
-});
+const questions = [
+  {
+    type: 'text',
+    message: 'What are you going to do?',
+    name: 'activity',
+  },
+  {
+    type: 'number',
+    message: 'Focus Time (in minutes):',
+    name: 'focus',
+  },
+  {
+    type: 'number',
+    message: 'Break Time (in minutes):',
+    name: 'breakTime',
+  },
+];
 
-server.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+async function main() {
+  try {
+    const answers = await inquirer.prompt(questions);
+    const { focus, breakTime } = answers;
+
+    const pom = new Pomodoro(focus, breakTime);
+
+    pom.startFocus();
+    console.log('Answers:', answers);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+main();
