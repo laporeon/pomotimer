@@ -1,4 +1,5 @@
 import { focusProgressBar, breakProgressBar } from '../libs/cli-progress.js';
+import { notificationAlert } from '../libs/notifier.js';
 
 export class Pomodoro {
   constructor(focus, breakTime) {
@@ -51,7 +52,16 @@ export class Pomodoro {
     clearInterval(this.timer);
     this.currentProgressBar.stop();
 
-    if (this.currentProgressBar === focusProgressBar) return this.startBreak();
+    if (this.currentProgressBar === focusProgressBar) {
+      notificationAlert(
+        'Focus time is over. Break Time is going to start in 10s.',
+      );
+
+      setTimeout(() => {
+        notificationAlert('Time to take a break!');
+        this.startBreak();
+      }, 10000);
+    }
   }
 
   createProgressBar() {
