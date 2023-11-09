@@ -1,33 +1,41 @@
-import { progressBar } from '../libs/cli-progress.js';
+import { focusProgressBar, breakProgressBar } from '../libs/cli-progress.js';
 
 export class Pomodoro {
   constructor(focus, breakTime) {
     this.focus = focus;
     this.breakTime = breakTime;
-    this.focusTimeInSeconds = this.focus * 60;
     this.timer = '';
     this.value = 0;
-    this.progressBar = progressBar;
+    this.focusTimeInSeconds = this.focus * 60;
+    this.breakTimeInSeconds = this.breakTime * 60;
+    this.currentProgressBar = focusProgressBar;
+    this.currentTime = this.focusTimeInSeconds;
   }
+
   startFocus() {
     this.createProgressBar();
-
-    this.timer = setInterval(() => {
-      this.countdown();
-      this.updateProgressBar();
-    }, 1000);
+    this.countdown();
   }
 
+  // TODO: Fix breakProgressBar issue where duration_formatted skips the last second e.g 2:00 goes only to 1:59
   startBreak() {
-    console.log("\nIt's break time!!");
+    this.currentProgressBar = breakProgressBar;
+    this.currentTime = this.breakTimeInSeconds;
+    this.value = 0;
+
+    this.createProgressBar();
+    this.countdown();
   }
 
   countdown() {
-    if (this.focusTimeInSeconds <= 0) {
-      this.stop();
-    }
+    this.timer = setInterval(() => {
+      if (this.currentTime <= 0) {
+        this.stop();
+      }
 
-    this.focusTimeInSeconds--;
+      this.currentTime--;
+      this.updateProgressBar();
+    }, 1000);
   }
 
   format(time) {
@@ -41,20 +49,21 @@ export class Pomodoro {
 
   stop() {
     clearInterval(this.timer);
-    this.progressBar.stop();
-    this.startBreak();
+    this.currentProgressBar.stop();
+
+    if (this.currentProgressBar === focusProgressBar) return this.startBreak();
   }
 
   createProgressBar() {
-    this.progressBar.start(this.focusTimeInSeconds, 0, {
+    this.currentProgressBar.start(this.currentTime, 0, {
       speed: 'N/A',
-      focus_time_formatted: this.format(this.focusTimeInSeconds),
+      time_formatted: this.format(this.currentTime),
     });
   }
 
   updateProgressBar() {
     this.value++;
-    this.progressBar.update(this.value);
+    this.currentProgressBar.update(this.value);
   }
 
   init() {
