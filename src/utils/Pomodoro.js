@@ -1,15 +1,17 @@
-import { focusProgressBar, breakProgressBar } from '../libs/cli-progress.js';
+// import { focusProgressBar, breakProgressBar } from '../libs/cli-progress.js';
+import { progressBar } from '../libs/cli-progress.js';
 import { notificationAlert } from '../libs/notifier.js';
 
 export class Pomodoro {
-  constructor(focus, breakTime) {
+  constructor(focus, pause) {
     this.focus = focus;
-    this.breakTime = breakTime;
+    this.breakTime = pause;
     this.timer = '';
+    this.type = 'Focus';
     this.value = 0;
     this.focusTimeInSeconds = this.focus * 60;
     this.breakTimeInSeconds = this.breakTime * 60;
-    this.currentProgressBar = focusProgressBar;
+    this.progressBar = progressBar;
     this.currentTime = this.focusTimeInSeconds;
   }
 
@@ -18,9 +20,8 @@ export class Pomodoro {
     this.countdown();
   }
 
-  // TODO: Fix breakProgressBar issue where duration_formatted skips the last second e.g 2:00 goes only to 1:59
   startBreak() {
-    this.currentProgressBar = breakProgressBar;
+    this.type = 'Break';
     this.currentTime = this.breakTimeInSeconds;
     this.value = 0;
 
@@ -50,9 +51,9 @@ export class Pomodoro {
 
   stop() {
     clearInterval(this.timer);
-    this.currentProgressBar.stop();
+    this.progressBar.stop();
 
-    if (this.currentProgressBar === focusProgressBar) {
+    if (this.type === 'Focus') {
       notificationAlert(
         'Focus time is over. Break Time is going to start in 10s.',
       );
@@ -65,15 +66,16 @@ export class Pomodoro {
   }
 
   createProgressBar() {
-    this.currentProgressBar.start(this.currentTime, 0, {
+    this.progressBar.start(this.currentTime, 0, {
       speed: 'N/A',
       time_formatted: this.format(this.currentTime),
+      type: this.type,
     });
   }
 
   updateProgressBar() {
     this.value++;
-    this.currentProgressBar.update(this.value);
+    this.progressBar.update(this.value);
   }
 
   init() {
