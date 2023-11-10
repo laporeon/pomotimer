@@ -7,16 +7,22 @@ const questions = [
     type: 'text',
     message: 'What are you going to do?',
     name: 'activity',
+    validate: input => {
+      if (!input) return 'Please, provide an actitivy.';
+      return true;
+    },
   },
   {
     type: 'number',
     message: 'Focus Time (in minutes):',
     name: 'focus',
+    default: 25,
   },
   {
     type: 'number',
     message: 'Break Time (in minutes):',
     name: 'pause',
+    default: 5,
   },
 ];
 
