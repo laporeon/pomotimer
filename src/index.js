@@ -16,16 +16,16 @@ const questions = [
   {
     type: 'number',
     message: 'Break Time (in minutes):',
-    name: 'breakTime',
+    name: 'pause',
   },
 ];
 
 async function main() {
   try {
     const answers = await inquirer.prompt(questions);
-    const { focus, breakTime } = answers;
+    const { focus, pause } = answers;
 
-    const pomodoro = new Pomodoro(focus, breakTime);
+    const pomodoro = new Pomodoro(focus, pause);
 
     pomodoro.init();
   } catch (error) {
