@@ -9,6 +9,7 @@ export class Pomodoro {
     this.timer = '';
     this.type = 'Focus';
     this.value = 0;
+    this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
     this.breakTimeInSeconds = this.breakTime * 60;
     this.progressBar = progressBar;
@@ -24,6 +25,7 @@ export class Pomodoro {
     this.type = 'Break';
     this.currentTime = this.breakTimeInSeconds;
     this.value = 0;
+    this.elapsedTime = 0;
 
     this.createProgressBar();
     this.countdown();
@@ -31,11 +33,11 @@ export class Pomodoro {
 
   countdown() {
     this.timer = setInterval(() => {
-      if (this.currentTime <= 0) {
-        this.stop();
+      if (this.elapsedTime === this.currentTime) {
+        return this.stop();
       }
 
-      this.currentTime--;
+      this.elapsedTime++;
       this.updateProgressBar();
     }, 1000);
   }
@@ -50,12 +52,12 @@ export class Pomodoro {
   }
 
   stop() {
-    clearInterval(this.timer);
     this.progressBar.stop();
+    clearInterval(this.timer);
 
     if (this.type === 'Focus') {
       notificationAlert(
-        'Focus time is over. Break Time is going to start in 10s.',
+        'Focus time is over. Break time is going to start in 10s.',
       );
 
       setTimeout(() => {
@@ -68,14 +70,17 @@ export class Pomodoro {
   createProgressBar() {
     this.progressBar.start(this.currentTime, 0, {
       speed: 'N/A',
-      time_formatted: this.format(this.currentTime),
+      elapsed_time: this.format(this.elapsedTime),
+      total_time: this.format(this.currentTime),
       type: this.type,
     });
   }
 
   updateProgressBar() {
     this.value++;
-    this.progressBar.update(this.value);
+    this.progressBar.update(this.value, {
+      elapsed_time: this.format(this.elapsedTime),
+    });
   }
 
   init() {
