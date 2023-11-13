@@ -4,6 +4,9 @@
   "main": "./src/index.js",
   "description": "A simple Pomodoro CLI timer.",
   "type": "module",
+  "bin": {
+    "pomotimer": "./src/index.js"
+  },
   "scripts": {
     "start": "node ./src/index.js",
     "lint": "eslint . --ext .js",
