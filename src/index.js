@@ -8,7 +8,7 @@ const questions = [
     message: 'What are you going to do?',
     name: 'activity',
     validate: input => {
-      if (!input) return 'Please, provide an actitivy.';
+      if (!input) return 'Please, provide an activity.';
       return true;
     },
   },
@@ -29,9 +29,9 @@ const questions = [
 async function main() {
   try {
     const answers = await inquirer.prompt(questions);
-    const { focus, pause } = answers;
+    const { activity, focus, pause } = answers;
 
-    const pomodoro = new Pomodoro(focus, pause);
+    const pomodoro = new Pomodoro(activity, focus, pause);
 
     pomodoro.init();
   } catch (error) {
