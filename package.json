@@ -1,7 +1,8 @@
 {
-  "name": "pomocli",
+  "name": "pomotimer",
   "version": "1.0.0",
   "main": "./src/index.js",
+  "description": "A simple Pomodoro CLI timer.",
   "type": "module",
   "scripts": {
     "start": "node ./src/index.js",
@@ -9,9 +10,16 @@
     "lint:fix": "eslint . --fix --ext .js",
     "format": "prettier --config .prettierrc --write src/**"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "CLI",
+    "pomodoro",
+    "timer"
+  ],
+  "bugs": {
+    "url": "https://github.com/laporeon/pomotimer/issues"
+  },
+  "homepage": "https://github.com/laporeon/pomotimer",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
