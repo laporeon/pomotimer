@@ -1,9 +1,10 @@
-// import { focusProgressBar, breakProgressBar } from '../libs/cli-progress.js';
 import { progressBar } from '../libs/cli-progress.js';
 import { notificationAlert } from '../libs/notifier.js';
+import { getLocalTime } from './datetime.js';
 
 export class Pomodoro {
-  constructor(focus, pause) {
+  constructor(activity, focus, pause) {
+    this.activity = activity;
     this.focus = focus;
     this.breakTime = pause;
     this.timer = '';
@@ -17,6 +18,7 @@ export class Pomodoro {
   }
 
   startFocus() {
+    console.log(`\nDoing: ${this.activity} | Started at: ${getLocalTime()} \n`);
     this.createProgressBar();
     this.countdown();
   }
@@ -65,6 +67,8 @@ export class Pomodoro {
         this.startBreak();
       }, 10000);
     }
+
+    if (this.type === 'Break') console.log(`\nFinished at: ${getLocalTime()}`);
   }
 
   createProgressBar() {
