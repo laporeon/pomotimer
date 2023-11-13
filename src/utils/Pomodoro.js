@@ -56,19 +56,7 @@ export class Pomodoro {
   stop() {
     this.progressBar.stop();
     clearInterval(this.timer);
-
-    if (this.type === 'Focus') {
-      notificationAlert(
-        'Focus time is over. Break time is going to start in 10s.',
-      );
-
-      setTimeout(() => {
-        notificationAlert('Time to take a break!');
-        this.startBreak();
-      }, 10000);
-    }
-
-    if (this.type === 'Break') console.log(`\nFinished at: ${getLocalTime()}`);
+    this.notify();
   }
 
   createProgressBar() {
@@ -85,6 +73,24 @@ export class Pomodoro {
     this.progressBar.update(this.value, {
       elapsed_time: this.format(this.elapsedTime),
     });
+  }
+
+  notify() {
+    if (this.type === 'Focus') {
+      notificationAlert(
+        'Focus time is over. Break time is going to start in 10s.',
+      );
+
+      setTimeout(() => {
+        notificationAlert('Time to take a break!');
+        this.startBreak();
+      }, 10000);
+    }
+
+    if (this.type === 'Break') {
+      notificationAlert('Congratulations! Session completed.');
+      console.log(`\nFinished at: ${getLocalTime()}`);
+    }
   }
 
   init() {
