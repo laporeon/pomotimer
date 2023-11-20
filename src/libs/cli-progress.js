@@ -4,7 +4,7 @@ import cliProgress from 'cli-progress';
 export const progressBar = new cliProgress.SingleBar({
   format:
     '{type} Time [' +
-    chalk.yellow('{bar}') +
+    chalk.hex('fc5d3d').bold('{bar}') +
     '] {percentage}%  {elapsed_time}/{total_time}',
   barCompleteChar: '\u2588',
   barIncompleteChar: '\u2591',
