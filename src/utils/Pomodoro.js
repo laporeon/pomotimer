@@ -1,34 +1,25 @@
+import gradient from 'gradient-string';
+
 import { progressBar } from '../libs/cli-progress.js';
 import { notificationAlert } from '../libs/notifier.js';
-import { getLocalTime } from './datetime.js';
+import { localTime } from './localtime.js';
 
 export class Pomodoro {
-  constructor(activity, focus, pause) {
-    this.activity = activity;
+  constructor(title, focus, description) {
+    this.title = title ?? 'Pomotimer';
+    this.description = description ?? 'Congratulations! Session completed.';
     this.focus = focus;
-    this.breakTime = pause;
     this.timer = '';
     this.type = 'Focus';
     this.value = 0;
     this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
-    this.breakTimeInSeconds = this.breakTime * 60;
     this.progressBar = progressBar;
     this.currentTime = this.focusTimeInSeconds;
   }
 
-  startFocus() {
-    console.log(`\nDoing: ${this.activity} | Started at: ${getLocalTime()} \n`);
-    this.createProgressBar();
-    this.countdown();
-  }
-
-  startBreak() {
-    this.type = 'Break';
-    this.currentTime = this.breakTimeInSeconds;
-    this.value = 0;
-    this.elapsedTime = 0;
-
+  start() {
+    console.log(gradient.morning(`\n${localTime()} | ${this.title}\n`));
     this.createProgressBar();
     this.countdown();
   }
@@ -57,6 +48,7 @@ export class Pomodoro {
     this.progressBar.stop();
     clearInterval(this.timer);
     this.notify();
+    console.log(gradient.morning(`\nFinished!`));
   }
 
   createProgressBar() {
@@ -76,24 +68,10 @@ export class Pomodoro {
   }
 
   notify() {
-    if (this.type === 'Focus') {
-      notificationAlert(
-        'Focus time is over. Break time is going to start in 10s.',
-      );
-
-      setTimeout(() => {
-        notificationAlert('Time to take a break!');
-        this.startBreak();
-      }, 10000);
-    }
-
-    if (this.type === 'Break') {
-      notificationAlert('Congratulations! Session completed.');
-      console.log(`\nFinished at: ${getLocalTime()}`);
-    }
+    notificationAlert(`${this.description}`);
   }
 
   init() {
-    this.startFocus();
+    this.start();
   }
 }
