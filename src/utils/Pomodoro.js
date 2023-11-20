@@ -68,7 +68,7 @@ export class Pomodoro {
   }
 
   notify() {
-    notificationAlert(`${this.description}`);
+    notificationAlert(this.title, this.description);
   }
 
   init() {
