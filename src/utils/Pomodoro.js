@@ -10,7 +10,6 @@ export class Pomodoro {
     this.description = description ?? 'Congratulations! Session completed.';
     this.focus = focus;
     this.timer = '';
-    this.type = 'Focus';
     this.value = 0;
     this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
@@ -56,7 +55,6 @@ export class Pomodoro {
       speed: 'N/A',
       elapsed_time: this.format(this.elapsedTime),
       total_time: this.format(this.currentTime),
-      type: this.type,
     });
   }
 
