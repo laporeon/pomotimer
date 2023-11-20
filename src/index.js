@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 
-import { Pomodoro } from './utils/Pomodoro.js';
+import { Pomodoro } from './lib/Pomodoro.js';
 
 program.name('pomotimer').description('A Pomodoro CLI timer.').version('1.0.0');
 
