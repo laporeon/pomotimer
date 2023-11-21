@@ -5,10 +5,11 @@ import { localTime } from '../helpers/localtime.js';
 import { notificationAlert } from '../helpers/notifier.js';
 
 export class Pomodoro {
-  constructor(title, focus, description) {
-    this.title = title ?? 'Pomotimer';
-    this.description = description ?? 'Congratulations! Session completed.';
+  constructor(title, focus, description, style) {
+    this.title = title;
+    this.description = description;
     this.focus = focus;
+    this.style = style;
     this.timer = '';
     this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
@@ -24,7 +25,7 @@ export class Pomodoro {
 
   start() {
     console.clear();
-    console.log(gradient.morning(`\n${localTime()} | ${this.title}\n`));
+    console.log(gradient[this.style](`\n${localTime()} | ${this.title}\n`));
     this.spinner.start();
     this.countdown();
   }
@@ -64,7 +65,7 @@ export class Pomodoro {
 
   stop() {
     console.log('\n');
-    this.spinner.succeed(gradient.morning('Finished!'));
+    this.spinner.succeed(gradient[this.style]('Finished!'));
     clearInterval(this.timer);
     this.notify();
   }
