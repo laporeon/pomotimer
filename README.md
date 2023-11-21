@@ -56,4 +56,4 @@ Examples:
 
 ![Notification](./assets/defaultnotification.png)
 
-[⬆ Back to the top](#--pomotimer)
+[⬆ Back to the top](#---pomotimer)
