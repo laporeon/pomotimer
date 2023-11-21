@@ -22,8 +22,7 @@ export const isValidGradientStyle = style => {
 };
 
 export const isValidNumber = value => {
-  // if (Number.isNaN(+value) || !Number.isInteger(+value))
-  if (Number.isNaN(+value))
+  if (Number.isNaN(+value) || !Number.isInteger(+value))
     throw new Error(
       'Please, enter a valid value for your focus session. e.g: 10',
     );
