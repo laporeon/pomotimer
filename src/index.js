@@ -1,32 +1,28 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 
+import { isValidGradientStyle, isValidNumber } from './helpers/validators.js';
 import { Pomodoro } from './lib/Pomodoro.js';
 
 program.name('pomotimer').description('A Pomodoro CLI timer.').version('1.0.0');
 
 program
   .option('-f, --focus <value>', 'Focus time in minutes', '25')
-  .option(
-    '-t, --title <value>',
-    'Customize the title for your Pomodoro session.',
-    'Pomotimer',
-  )
+  .option('-t, --title <value>', 'Customize Pomodoro title.', 'Pomotimer')
   .option(
     '-d, --description <value>',
-    'Customize the description for your notification.',
+    'Customize notification description.',
     'Congratulations! Session completed.',
   )
+  .option('-s, --style <value>', 'Customize CLI text color.', 'morning')
 
   .action(options => {
-    const { focus, title, description } = options;
+    const { focus, title, description, style } = options;
 
-    if (Number.isNaN(+focus) || !Number.isInteger(+focus))
-      throw new Error(
-        'Please, enter a valid value for your focus session. e.g: 10',
-      );
+    isValidNumber(focus);
+    isValidGradientStyle(style);
 
-    const pomodoro = new Pomodoro(title, focus, description);
+    const pomodoro = new Pomodoro(title, focus, description, style);
 
     pomodoro.init();
   });
