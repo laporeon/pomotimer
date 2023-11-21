@@ -25,6 +25,14 @@ program
     const pomodoro = new Pomodoro(title, focus, description, style);
 
     pomodoro.init();
-  });
+  })
+  .addHelpText(
+    'after',
+    `\nExamples:
+    $ pomotimer -t "Studying JavaScript"
+    $ pomotimer -s "summer"
+    $ pomotimer -f 5 -t "Reading" -d "Finished" -s "rainbow"`,
+  )
+  .showSuggestionAfterError();
 
 program.parse();
