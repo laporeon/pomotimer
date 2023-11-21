@@ -1,42 +1,30 @@
-import inquirer from 'inquirer';
+#!/usr/bin/env node
+import { program } from 'commander';
 
-import { Pomodoro } from './utils/Pomodoro.js';
+import { isValidGradientStyle, isValidNumber } from './helpers/validators.js';
+import { Pomodoro } from './lib/Pomodoro.js';
 
-const questions = [
-  {
-    type: 'text',
-    message: 'What are you going to do?',
-    name: 'activity',
-    validate: input => {
-      if (!input) return 'Please, provide an activity.';
-      return true;
-    },
-  },
-  {
-    type: 'number',
-    message: 'Focus Time (in minutes):',
-    name: 'focus',
-    default: 25,
-  },
-  {
-    type: 'number',
-    message: 'Break Time (in minutes):',
-    name: 'pause',
-    default: 5,
-  },
-];
+program.name('pomotimer').description('A Pomodoro CLI timer.').version('1.0.0');
 
-async function main() {
-  try {
-    const answers = await inquirer.prompt(questions);
-    const { activity, focus, pause } = answers;
+program
+  .option('-f, --focus <value>', 'Focus time in minutes', '25')
+  .option('-t, --title <value>', 'Customize Pomodoro title.', 'Pomotimer')
+  .option(
+    '-d, --description <value>',
+    'Customize notification description.',
+    'Congratulations! Session completed.',
+  )
+  .option('-s, --style <value>', 'Customize CLI text color.', 'morning')
 
-    const pomodoro = new Pomodoro(activity, focus, pause);
+  .action(options => {
+    const { focus, title, description, style } = options;
+
+    isValidNumber(focus);
+    isValidGradientStyle(style);
+
+    const pomodoro = new Pomodoro(title, focus, description, style);
 
     pomodoro.init();
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+  });
 
-main();
+program.parse();
