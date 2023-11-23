@@ -7,9 +7,6 @@
     "pomotimer": "./src/index.js"
   },
   "type": "module",
-  "bin": {
-    "pomotimer": "./src/index.js"
-  },
   "scripts": {
     "start": "node ./src/index.js",
     "lint": "eslint . --ext .js",
