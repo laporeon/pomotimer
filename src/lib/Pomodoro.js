@@ -5,52 +5,40 @@ import { localTime } from '../helpers/localtime.js';
 import { notificationAlert } from '../helpers/notifier.js';
 
 export class Pomodoro {
-  constructor(title, focus, description, style) {
+  constructor(title, focus, pause, description, style) {
     this.title = title;
-    this.description = description;
     this.focus = focus;
+    this.breakTime = pause;
+    this.description = description;
     this.style = style;
     this.timer = '';
     this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
+    this.breakTimeInSeconds = this.breakTime * 60;
+    this.currentTime = this.focusTimeInSeconds;
     this.percentage = 0;
-    this.spinner = ora({
-      text: `Progress ${this.percentage}% | ${this.format(
-        this.elapsedTime,
-      )}/${this.format(this.focusTimeInSeconds)}`,
-      spinner: 'bouncingBar',
-      color: 'yellow',
-    });
+    this.type = 'Focus';
+    this.spinner = '';
   }
 
   start() {
-    console.clear();
-    console.log(gradient[this.style](`\n${localTime()} | ${this.title}\n`));
-    this.spinner.start();
+    this.createSpinner();
     this.countdown();
   }
 
-  updateProgressValue(value, elapsedTime, totalTime) {
-    this.spinner.text = `Progress: ${value}% | ${elapsedTime}/${totalTime}`;
+  stop() {
+    clearInterval(this.timer);
+    this.notify();
   }
 
   countdown() {
     this.timer = setInterval(() => {
-      if (this.elapsedTime === this.focusTimeInSeconds) {
+      if (this.elapsedTime === this.currentTime) {
         return this.stop();
       }
+
       this.elapsedTime++;
-
-      this.percentage = Math.min(
-        100,
-        Math.ceil((this.elapsedTime / this.focusTimeInSeconds) * 100),
-      );
-
-      this.updateProgressValue(
-        this.percentage,
-        this.format(this.elapsedTime),
-        this.format(this.focusTimeInSeconds),
-      );
+      this.updateSpinner();
     }, 1000);
   }
 
@@ -63,18 +51,52 @@ export class Pomodoro {
     )}`;
   }
 
-  stop() {
-    console.log('\n');
-    this.spinner.succeed(gradient[this.style]('Finished!'));
-    clearInterval(this.timer);
-    this.notify();
+  notify() {
+    if (this.type === 'Focus') {
+      notificationAlert(this.title, 'Time to take a break!');
+
+      this.type = 'Break';
+      this.currentTime = this.breakTimeInSeconds;
+      this.value = 0;
+      this.elapsedTime = 0;
+      this.percentage = 0;
+      this.spinner.succeed();
+
+      return this.start();
+    }
+
+    this.spinner.succeed();
+    console.log(gradient[this.style]('\nFinished!'));
+    return notificationAlert(this.title, this.description);
   }
 
-  notify() {
-    notificationAlert(this.title, this.description);
+  createSpinner() {
+    this.spinner = ora({
+      text: `${this.type} => Progress: ${this.percentage}% | ${this.format(
+        this.elapsedTime,
+      )}/${this.format(this.currentTime)}`,
+      spinner: 'bouncingBar',
+      color: 'green',
+    });
+
+    return this.spinner.start();
+  }
+
+  updateSpinner() {
+    this.percentage = Math.min(
+      100,
+      Math.ceil((this.elapsedTime / this.currentTime) * 100),
+    );
+
+    const elapsedTimeFormatted = this.format(this.elapsedTime);
+    const totalTimeFormatted = this.format(this.currentTime);
+
+    this.spinner.text = `${this.type} => Progress: ${this.percentage}% | ${elapsedTimeFormatted}/${totalTimeFormatted}`;
   }
 
   init() {
+    console.clear();
+    console.log(gradient[this.style](`\n${localTime()} | ${this.title}\n`));
     this.start();
   }
 }
