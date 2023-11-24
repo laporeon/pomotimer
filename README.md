@@ -57,7 +57,7 @@ Examples:
 
 ## Preview
 
-![Pomodotimer](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/screenshot.png)
+![Pomotimer](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/pomotimer.png)
 
 ![Notification](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/defaultnotification.png)
 
