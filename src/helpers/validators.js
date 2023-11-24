@@ -21,9 +21,11 @@ export const isValidGradientStyle = style => {
     );
 };
 
-export const isValidNumber = value => {
-  if (Number.isNaN(+value) || !Number.isInteger(+value))
-    throw new Error(
-      'Please, enter a valid value for your focus session. e.g: 10',
-    );
+export const isValidNumber = values => {
+  values.forEach(value => {
+    if (Number.isNaN(+value) || !Number.isInteger(+value))
+      throw new Error(
+        'Please, enter a valid value for focus, pause and cycles options. e.g: 10',
+      );
+  });
 };
