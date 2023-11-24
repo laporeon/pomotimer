@@ -5,10 +5,11 @@ import { localTime } from '../helpers/localtime.js';
 import { notificationAlert } from '../helpers/notifier.js';
 
 export class Pomodoro {
-  constructor(title, focus, pause, description, style) {
+  constructor(title, focus, pause, cycles, description, style) {
     this.title = title;
     this.focus = focus;
     this.breakTime = pause;
+    this.cycles = cycles;
     this.description = description;
     this.style = style;
     this.timer = '';
@@ -19,6 +20,7 @@ export class Pomodoro {
     this.percentage = 0;
     this.type = 'Focus';
     this.spinner = '';
+    this.index = 1;
   }
 
   start() {
@@ -65,6 +67,20 @@ export class Pomodoro {
       return this.start();
     }
 
+    if (this.type === 'Break' && this.index < this.cycles) {
+      notificationAlert(this.title, 'Break is over. Time to focus!');
+
+      this.index++;
+      this.type = 'Focus';
+      this.currentTime = this.focusTimeInSeconds;
+      this.value = 0;
+      this.elapsedTime = 0;
+      this.percentage = 0;
+      this.spinner.succeed();
+
+      return this.start();
+    }
+
     this.spinner.succeed();
     console.log(gradient[this.style]('\nFinished!'));
     return notificationAlert(this.title, this.description);
@@ -72,9 +88,9 @@ export class Pomodoro {
 
   createSpinner() {
     this.spinner = ora({
-      text: `${this.type} => Progress: ${this.percentage}% | ${this.format(
-        this.elapsedTime,
-      )}/${this.format(this.currentTime)}`,
+      text: `${this.type} [${this.index}/${this.cycles}]: ${
+        this.percentage
+      }% | ${this.format(this.elapsedTime)}/${this.format(this.currentTime)}`,
       spinner: 'bouncingBar',
       color: 'green',
     });
@@ -91,7 +107,7 @@ export class Pomodoro {
     const elapsedTimeFormatted = this.format(this.elapsedTime);
     const totalTimeFormatted = this.format(this.currentTime);
 
-    this.spinner.text = `${this.type} => Progress: ${this.percentage}% | ${elapsedTimeFormatted}/${totalTimeFormatted}`;
+    this.spinner.text = `${this.type} [${this.index}/${this.cycles}]: ${this.percentage}% | ${elapsedTimeFormatted}/${totalTimeFormatted}`;
   }
 
   init() {
