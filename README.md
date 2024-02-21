@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img width="120" src="https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/icon.png" alt="Pomotimer">
+	<img width="120" src="./assets/icon.png" alt="Pomotimer">
   <p> Pomotimer</p>
 </h1>
 
@@ -72,20 +72,20 @@ Examples:
 
 ### Running:
 
-![Pomotimer](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/screenshot.png)
+![Pomotimer](./assets/screenshot.png)
 
 ### Notifications
 
 **At the end of each focus session**:
 
-![FocusEnd](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/end_of_focus.png)
+![FocusEnd](./assets/end_of_focus.png)
 
 **At the end of each break session**:
 
-![BreakEnd](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/end_of_pause.png)
+![BreakEnd](./assets/end_of_break.png)
 
 **At Pomodoro full cycle completion**:
 
-![Notification](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/defaultnotification.png)
+![Notification](./assets/defaultnotification.png)
 
 [⬆ Back to the top](#---pomotimer)
