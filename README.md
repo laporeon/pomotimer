@@ -8,10 +8,13 @@
 ## Table of Contents
 
 - [Features](#Features)
+- [Requirements](#Requirements)
 - [Installing](#installing)
 - [Usage](#usage)
 - [Preview](#preview)
-  <br/>
+  - [Running](#running)
+  - [Notifications](#notifications)
+    <br/>
 
 ---
 
@@ -25,11 +28,21 @@
 - Customize notification description for finished cycles.
 - Customize style for Pomodoro texts.
 
+## Requirements
+
+- [NodeJS](https://nodejs.org/en) v.20 or higher
+
+If you use [NVM](https://github.com/nvm-sh/nvm), just run `nvm use` inside of the root folder.
+
 ## Installing
 
-| NPM                                 | Yarn                                 |
-| ----------------------------------- | ------------------------------------ |
-| <pre>npm install -g pomotimer</pre> | <pre>yarn global add pomotimer</pre> |
+After cloning this repository, run the following command inside the root folder to install the project globally and allow you to use the commands at any directory you are, even if it's not the project's folder.
+
+```bash
+$ npm install -g .
+```
+
+Now you're good to go.
 
 ## Usage
 
@@ -57,7 +70,21 @@ Examples:
 
 ## Preview
 
-![Pomotimer](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/pomotimer.png)
+### Running:
+
+![Pomotimer](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/screenshot.png)
+
+### Notifications
+
+**At the end of each focus session**:
+
+![FocusEnd](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/end_of_focus.png)
+
+**At the end of each break session**:
+
+![BreakEnd](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/end_of_pause.png)
+
+**At Pomodoro full cycle completion**:
 
 ![Notification](https://raw.githubusercontent.com/laporeon/pomotimer/main/assets/defaultnotification.png)
 
