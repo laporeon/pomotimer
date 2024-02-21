@@ -72,7 +72,7 @@ Examples:
 
 ### Running:
 
-![Pomotimer](./assets/screenshot.png)
+![Pomotimer](./assets/pomotimer.png)
 
 ### Notifications
 
