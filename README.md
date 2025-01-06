@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img width="120" src="./assets/icon.png" alt="Pomotimer">
+	<img width="120" src="./assets/images/icon.png" alt="Pomotimer">
   <p> Pomotimer</p>
 </h1>
 
@@ -13,6 +13,7 @@
 - [Usage](#usage)
 - [Preview](#preview)
   - [Running](#running)
+  - [Finished](#finished)
   - [Notifications](#notifications)
     <br/>
 
@@ -68,20 +69,20 @@ Examples:
 
 ### Running:
 
-![Pomotimer](./assets/pomotimer.png)
+![Pomotimer](./assets/images/pomotimer.png)
+
+### Finished:
+
+![Pomotimer](./assets/images/finished.png)
 
 ### Notifications
 
-**At the end of each focus session**:
+![Pomotimer](./assets/images/notifications.png)
 
-![FocusEnd](./assets/end_of_focus.png)
+Notifications meaning:
 
-**At the end of each break session**:
-
-![BreakEnd](./assets/end_of_break.png)
-
-**At Pomodoro full cycle completion**:
-
-![Notification](./assets/defaultnotification.png)
+- #1 at the end of each focus session
+- #2 at the end of each paused session
+- #3 at Pomodoro completion
 
 [⬆ Back to the top](#---pomotimer)
