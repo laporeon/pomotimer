@@ -1,17 +1,15 @@
-import gradient from 'gradient-string';
+import gradient, { cristal } from 'gradient-string';
 import ora from 'ora';
 
 import { localTime } from '../helpers/localtime.js';
 import { notificationAlert } from '../helpers/notifier.js';
 
 export class Pomodoro {
-  constructor(title, focus, pause, cycles, description, style) {
+  constructor(title, focus, pause, cycles) {
     this.title = title;
     this.focus = focus;
     this.breakTime = pause;
     this.cycles = cycles;
-    this.description = description;
-    this.style = style;
     this.timer = '';
     this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
@@ -82,8 +80,8 @@ export class Pomodoro {
     }
 
     this.spinner.succeed();
-    console.log(gradient[this.style]('\nFinished!'));
-    return notificationAlert(this.title, this.description);
+    console.log(cristal('\nFinished!'));
+    return notificationAlert(this.title, 'Congratulations, Pomodoro finished!');
   }
 
   createSpinner() {
@@ -112,7 +110,7 @@ export class Pomodoro {
 
   init() {
     console.clear();
-    console.log(gradient[this.style](`\n${localTime()} | ${this.title}\n`));
+    console.log(cristal(`\n${localTime()} | ${this.title}\n`));
     this.start();
   }
 }
