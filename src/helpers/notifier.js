@@ -10,6 +10,6 @@ export const notificationAlert = (title, description) => {
   return notifier.notify({
     title,
     message: description,
-    icon: path.join(__dirname, '../../assets/icon.png'),
+    icon: path.join(__dirname, '../../assets/images/icon.png'),
   });
 };
