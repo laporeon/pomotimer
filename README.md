@@ -25,8 +25,6 @@
 - Customize how many cycles you want to do.
 - Customize your Pomodoro title.
 - Get a system notification at the end of each session. [Not available for WSL and MacOS]
-- Customize notification description for finished cycles.
-- Customize style for Pomodoro texts.
 
 ## Requirements
 
@@ -57,15 +55,13 @@ Options:
   -p, --pause <value>        Break time in minutes (default: "5")
   -c, --cycles <value>       How many cycles you want do do (default: "4")
   -t, --title <value>        Customize Pomodoro title. (default: "Pomotimer")
-  -d, --description <value>  Customize notification description. (default: "Congratulations! Session completed.")
-  -s, --style <value>        Customize CLI text color. (default: "morning")
   -h, --help                 display help for command
 
 Examples:
   pomotimer -t "Studying JavaScript"
   pomotimer -s "summer"
   pomotimer -f 15 -p 5 -c 2
-  pomotimer -f 5 -t "Reading" -d "Finished" -s "rainbow"
+  pomotimer -f 5 -t "Reading"
 ```
 
 ## Preview
