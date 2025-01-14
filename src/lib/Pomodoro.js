@@ -53,7 +53,7 @@ export class Pomodoro {
 
   notify() {
     if (this.type === 'Focus') {
-      notificationAlert(this.title, 'Time to take a break!');
+      notificationAlert(this.title, 'Time to take a break!', 'focus');
 
       this.type = 'Break';
       this.currentTime = this.breakTimeInSeconds;
@@ -66,7 +66,7 @@ export class Pomodoro {
     }
 
     if (this.type === 'Break' && this.index < this.cycles) {
-      notificationAlert(this.title, 'Break is over. Time to focus!');
+      notificationAlert(this.title, 'Break is over. Time to focus!', 'break');
 
       this.index++;
       this.type = 'Focus';
