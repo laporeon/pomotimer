@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const platform = process.platform;
 
 export const playSound = (status = 'completed') => {
-  let soundPath = path.join(__dirname, '../../assets/sounds/alarm');
+  let soundPath = path.join(__dirname, '../../assets/sounds/complete');
 
   if (status !== 'completed') {
     soundPath = path.join(__dirname, '../../assets/sounds/ding');
