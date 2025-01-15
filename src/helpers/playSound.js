@@ -15,16 +15,6 @@ export const playSound = (status = 'completed') => {
   }
 
   const linuxCmd = `paplay ${soundPath}.ogg`;
-  const windowsCmd = `wscript ${path.join(
-    __dirname,
-    '../../assets/sounds/forWindows.vbs',
-  )} ${soundPath}.mp3`;
 
-  if (platform === 'linux') {
-    return exec(linuxCmd);
-  }
-
-  if (platform === 'win32') {
-    return exec(windowsCmd);
-  }
+  return exec(linuxCmd);
 };
