@@ -8,8 +8,7 @@ import { playSound } from './playSound.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// TODO: test the sound is being played on both windows and linux
-
+// TODO: Find how i can input a custom sound for windows as well
 const useSound = process.platform !== 'linux';
 
 export const notificationAlert = (title, description, status) => {
