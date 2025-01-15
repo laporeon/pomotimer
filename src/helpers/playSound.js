@@ -5,8 +5,6 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const platform = process.platform;
-
 export const playSound = (status = 'completed') => {
   let soundPath = path.join(__dirname, '../../assets/sounds/complete');
 
