@@ -16,12 +16,8 @@ export const notificationAlert = (title, description, status) => {
       icon: path.join(__dirname, '../../assets/images/icon.png'),
       sound: false,
     },
-    err => {
-      if (err) {
-        console.error('Erro ao enviar a notificação:', err.message);
-      } else {
-        playSound(status);
-      }
+    () => {
+      playSound(status);
     },
   );
 };
