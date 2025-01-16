@@ -21,11 +21,12 @@
 
 ## Features
 
-- Customize your focus time session.
-- Customize your break time session.
-- Customize how many cycles you want to do.
-- Customize your Pomodoro title.
-- Get a system notification at the end of each session. [Not available for WSL and MacOS]
+- ✔️ Customize your focus time session.
+- ✔️ Customize your break time session.
+- ✔️ Customize how many cycles you want to do.
+- ✔️ Customize your Pomodoro title.
+- ✔️ Toast notifications at the end of focus, break and pomodoro completed stages. Not avaialkable for WSL.
+- ⚠️ Custom sounds notifications: at this time, custom sounds are only being played ate Unix systems. On Windows and MacOS sound willl be system default.
 
 ## Requirements
 
@@ -81,8 +82,8 @@ Examples:
 
 Notifications meaning:
 
-- #1 at the end of each focus session
-- #2 at the end of each paused session
+- #1 at the end of each break session
+- #2 at the end of each focus session
 - #3 at Pomodoro completion
 
 [⬆ Back to the top](#---pomotimer)
