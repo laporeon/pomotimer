@@ -25,8 +25,8 @@
 - ✔️ Customize your break time session.
 - ✔️ Customize how many cycles you want to do.
 - ✔️ Customize your Pomodoro title.
-- ✔️ Toast notifications at the end of focus, break and pomodoro completed stages. Not avaialkable for WSL.
-- ⚠️ Custom sounds notifications. At this time, custom sounds are only being played at Unix systems. On Windows and MacOS sound will be system default.
+- ✔️ Toast notifications at the end of focus, break and pomodoro completed stages. Not available for WSL.
+- ⚠️ Custom sounds notifications. Currently, custom sounds are only being played at Unix systems. On Windows and MacOS sound will be system default.
 
 ## Requirements
 
