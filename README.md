@@ -26,7 +26,7 @@
 - ✔️ Customize how many cycles you want to do.
 - ✔️ Customize your Pomodoro title.
 - ✔️ Toast notifications at the end of focus, break and pomodoro completed stages. Not avaialkable for WSL.
-- ⚠️ Custom sounds notifications: at this time, custom sounds are only being played ate Unix systems. On Windows and MacOS sound willl be system default.
+- ⚠️ Custom sounds notifications. At this time, custom sounds are only being played ate Unix systems. On Windows and MacOS sound will be system default.
 
 ## Requirements
 
