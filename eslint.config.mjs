@@ -1,16 +1,17 @@
 import prettier from 'eslint-plugin-prettier';
 import importHelpers from 'eslint-plugin-import-helpers';
 import prettierConfig from 'eslint-config-prettier';
+import typescriptParser from '@typescript-eslint/parser';
 
 export default [
   {
-    files: ['src/**/*.js'],
+    files: ['**/*.{ts,js,mjs}'],
     languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: {
-        process: 'readonly',
-        console: 'readonly',
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
       },
     },
     plugins: {
@@ -20,19 +21,24 @@ export default [
     rules: {
       ...prettierConfig.rules,
       'prettier/prettier': 'error',
-      'no-console': 'off',
       'import-helpers/order-imports': [
         'warn',
         {
           newlinesBetween: 'always',
-          groups: ['/^node:/', 'module', ['parent', 'sibling', 'index']],
+          groups: [
+            '/^node:/',
+            'module',
+            '/^@/',
+            ['parent', 'sibling', 'index'],
+          ],
           alphabetize: {
             order: 'asc',
             ignoreCase: true,
           },
         },
       ],
+      'no-console': 'off',
     },
-    ignores: ['**/*.config.js', 'node_modules'],
+    ignores: ['eslint.config.mjs', 'node_modules'],
   },
 ];

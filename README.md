@@ -36,7 +36,15 @@ If you use [NVM](https://github.com/nvm-sh/nvm), just run `nvm use` inside of th
 
 ## Installing
 
-After cloning this repository, run the following command inside the root folder to install the project globally and allow you to use the commands at any directory you are, even if it's not the project's folder.
+After cloning this repository, you'll need to build the project to compile files.
+
+Run the following command inside the root folder to compile project:
+
+```bash
+$ npm run build .
+```
+
+Yet on the root folder, run the following command inside the root folder to install the project globally and allow you to use it at any directory you are.
 
 ```bash
 $ npm install -g .
