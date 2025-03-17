@@ -1,24 +1,33 @@
-import gradient, { cristal } from 'gradient-string';
-import ora from 'ora';
+import { cristal } from 'gradient-string';
+import ora, { Ora } from 'ora';
 
-import { localTime } from '../helpers/localtime.js';
-import { notificationAlert } from '../helpers/notifier.js';
+import { localTime } from '@helpers/localtime.js';
+import { notificationAlert } from '@helpers/notifier.js';
+import IPomodoro from '@interfaces/IPomodoro';
 
 export class Pomodoro {
-  constructor(title, focus, pause, cycles) {
+  private title: string;
+  private focus: number;
+  private breakTime: number;
+  private cycles: number;
+  private timer: NodeJS.Timeout = setTimeout(() => {}, 0);
+  private elapsedTime: number = 0;
+  private focusTimeInSeconds: number;
+  private breakTimeInSeconds: number;
+  private currentTime: number;
+  private percentage: number = 0;
+  private type: 'Focus' | 'Break' = 'Focus';
+  private spinner: Ora = ora();
+  private index: number = 1;
+
+  constructor({ title, focus, pause, cycles }: IPomodoro) {
     this.title = title;
     this.focus = focus;
     this.breakTime = pause;
     this.cycles = cycles;
-    this.timer = '';
-    this.elapsedTime = 0;
     this.focusTimeInSeconds = this.focus * 60;
     this.breakTimeInSeconds = this.breakTime * 60;
     this.currentTime = this.focusTimeInSeconds;
-    this.percentage = 0;
-    this.type = 'Focus';
-    this.spinner = '';
-    this.index = 1;
   }
 
   start() {
@@ -42,7 +51,7 @@ export class Pomodoro {
     }, 1000);
   }
 
-  format(time) {
+  format(time: number) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
@@ -53,11 +62,14 @@ export class Pomodoro {
 
   notify() {
     if (this.type === 'Focus') {
-      notificationAlert(this.title, 'Time to take a break!', 'focus');
+      notificationAlert({
+        title: this.title,
+        description: 'Time to take a break!',
+        status: 'focus',
+      });
 
       this.type = 'Break';
       this.currentTime = this.breakTimeInSeconds;
-      this.value = 0;
       this.elapsedTime = 0;
       this.percentage = 0;
       this.spinner.succeed();
@@ -66,12 +78,15 @@ export class Pomodoro {
     }
 
     if (this.type === 'Break' && this.index < this.cycles) {
-      notificationAlert(this.title, 'Break is over. Time to focus!', 'break');
+      notificationAlert({
+        title: this.title,
+        description: 'Break is over. Time to focus!',
+        status: 'break',
+      });
 
       this.index++;
       this.type = 'Focus';
       this.currentTime = this.focusTimeInSeconds;
-      this.value = 0;
       this.elapsedTime = 0;
       this.percentage = 0;
       this.spinner.succeed();
@@ -81,7 +96,10 @@ export class Pomodoro {
 
     this.spinner.succeed();
     console.log(cristal('\nFinished!'));
-    return notificationAlert(this.title, 'Congratulations, Pomodoro finished!');
+    return notificationAlert({
+      title: this.title,
+      description: 'Congratulations, Pomodoro finished!',
+    });
   }
 
   createSpinner() {

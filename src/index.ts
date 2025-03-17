@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 
-import { isValidNumber } from './helpers/validators.js';
-import { Pomodoro } from './lib/Pomodoro.js';
+import { isValidNumber } from '@helpers/validators';
+import { Pomodoro } from '@lib/Pomodoro';
 
 program.name('pomotimer').description('A Pomodoro CLI timer.').version('1.0.0');
 
@@ -11,12 +11,12 @@ program
   .option('-p, --pause <value>', 'Break time in minutes', '5')
   .option('-c, --cycles <value>', 'How many cycles you want do do', '4')
   .option('-t, --title <value>', 'Customize Pomodoro title.', 'Pomotimer')
-  .action(options => {
-    const { focus, pause, cycles, title } = options;
+  .action(settings => {
+    let { focus, pause, cycles, title } = settings;
 
     isValidNumber([focus, pause, cycles]);
 
-    const pomodoro = new Pomodoro(title, focus, pause, cycles);
+    const pomodoro = new Pomodoro({ title, focus, pause, cycles });
 
     pomodoro.init();
   })
