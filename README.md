@@ -41,7 +41,7 @@ After cloning this repository, you'll need to build the project to compile files
 Run the following command inside the root folder to compile project:
 
 ```bash
-$ npm run build .
+$ npm run build
 ```
 
 Yet on the root folder, run the following command inside the root folder to install the project globally and allow you to use it at any directory you are.
