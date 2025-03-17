@@ -1,17 +1,14 @@
 {
   "name": "pomotimer",
   "version": "1.0.0",
-  "main": "./src/index.js",
+  "main": "dist/index.js",
   "description": "A simple Pomodoro CLI timer.",
   "bin": {
-    "pomotimer": "./src/index.js"
+    "pomotimer": "./dist/index.js"
   },
-  "type": "module",
   "scripts": {
-    "start": "node ./src/index.js",
-    "lint": "eslint . --ext .js",
-    "lint:fix": "eslint . --fix --ext .js",
-    "format": "prettier --config .prettierrc --write src/**"
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && chmod +x dist/index.js",
+    "start:dev": "node dist/index.js"
   },
   "keywords": [
     "CLI",
@@ -20,15 +17,21 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^9.20.1",
-    "eslint-config-prettier": "^10.0.1",
+    "@types/node-notifier": "^8.0.5",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-import-helpers": "^2.0.1",
     "eslint-plugin-prettier": "^5.2.3",
-    "prettier": "^3.5.1"
+    "prettier": "^3.5.3",
+    "tsc-alias": "^1.8.11",
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^13.1.0",
+    "g": "^2.0.1",
     "gradient-string": "^3.0.0",
     "node-notifier": "^10.0.1",
     "ora": "^8.2.0"
