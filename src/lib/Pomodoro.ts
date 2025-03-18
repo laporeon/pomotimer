@@ -1,8 +1,8 @@
 import { cristal } from 'gradient-string';
 import ora, { Ora } from 'ora';
 
-import { localTime } from '@helpers/localtime.js';
-import { notificationAlert } from '@helpers/notifier.js';
+import { localTime } from '@helpers/localtime';
+import { notificationAlert } from '@helpers/notifier';
 import IPomodoro from '@interfaces/IPomodoro';
 
 export class Pomodoro {
